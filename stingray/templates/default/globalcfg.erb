@@ -1,0 +1,8 @@
+gid <%=@gid%>
+uid <%=@uid%>
+controlport <%=@controlport%>
+control!certificate <%=@control_certificate%>
+java!port <%=@java_port%>
+<%unless (defined?(@ec2_availability_zone)).nil? -%>ec2!availability_zone <%=@ec2_availability_zone%><%end-%>
+<%unless (defined?(@ec2_instanceid)).nil? -%>ec2!instanceid <%=@ec2_instanceid%><%end-%>
+<%unless (defined?(@external_ip)).nil? -%>externalip <%=@external_ip%><%end-%>

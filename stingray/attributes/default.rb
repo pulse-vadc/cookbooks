@@ -1,0 +1,7 @@
+default["stingray"]["path"] = "/opt/riverbed"
+default["stingray"]["version"] = "90"
+default["stingray"]["arch"] = "x86_64"
+default["stingray"]["tmpdir"] = "/tmp"
+default["stingray"]["accept_license"] = "reject"
+default["stingray"]["admin_user"] = "admin"
+default["stingray"]["java_enabled"] = "no"
