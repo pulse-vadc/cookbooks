@@ -16,6 +16,7 @@ recipe "stingray::cluster_new","Creates a new cluster with the specified install
 recipe "stingray::settings","Applies the settings.cfg template."
 recipe "stingray::virtual_server","Creates (or updates) a virtual server."
 recipe "stingray::pool","Creates (or updates) a pool."
+recipe "stingray::persistence","Creates a session persistence class."
 recipe "stingray::trafficipgroup", "Creates or updates a Traffic IP Group"
 
 grouping 'stingray',
