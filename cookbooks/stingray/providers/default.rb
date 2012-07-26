@@ -118,7 +118,7 @@ action :new_cluster do
       variables(
          :accept_license => new_resource.accept_license,
          :admin_password => new_resource.admin_pass,
-         :license_path => new_resource.license_key == "" ? "" : "#{new_resource.tmpdir}/#{new_resource.license_key}"
+         :license_path => new_resource.license_key == "" ? "" : new_resource.license_key
       )
 
    end
