@@ -8,7 +8,17 @@
 #
 action :install do
 
-   packagename = "ZeusTM_#{new_resource.version}_Linux-#{new_resource.arch}"
+    if new_resource.gold then
+
+        packagename =
+        "ZeusTM_#{new_resource.version}_Linux-#{new_resource.arch}-Gold"
+
+    else
+
+        packagename = "ZeusTM_#{new_resource.version}_Linux-#{new_resource.arch}"
+
+    end
+
    s3bucket = "http://s3.amazonaws.com/stingray-rightscale-90-a57a56ee8b4936501ffa85c76fa3dc9e/"
 
    directory "#{new_resource.tmpdir}/#{packagename}" do
@@ -108,7 +118,7 @@ action :new_cluster do
       variables(
          :accept_license => new_resource.accept_license,
          :admin_password => new_resource.admin_pass,
-         :license_path => new_resource.license_key == "" ? "" : "#{new_resource.tmpdir}/#{new_resource.license_key}"
+         :license_path => new_resource.license_key == "" ? "" : new_resource.license_key
       )
 
    end

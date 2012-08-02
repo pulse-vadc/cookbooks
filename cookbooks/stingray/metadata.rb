@@ -3,7 +3,7 @@ maintainer       "Riverbed Technology, Inc."
 maintainer_email "gosse.alex@gmail.com"
 license          "All rights reserved"
 description      "Installs/Configures stingray"
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.0.10"
 
 
@@ -16,6 +16,7 @@ recipe "stingray::cluster_new","Creates a new cluster with the specified install
 recipe "stingray::settings","Applies the settings.cfg template."
 recipe "stingray::virtual_server","Creates (or updates) a virtual server."
 recipe "stingray::pool","Creates (or updates) a pool."
+recipe "stingray::persistence","Creates a session persistence class."
 recipe "stingray::trafficipgroup", "Creates or updates a Traffic IP Group"
 
 grouping 'stingray',
