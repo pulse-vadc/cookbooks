@@ -26,4 +26,7 @@ attribute :join_cluster_port,	:kind_of => String
 # AWS attributes.
 attribute :ec2,   :kind_of => [FalseClass, TrueClass], :default => false
 
+# Other
+attribute :gold, :kind_of => [FalseClass, TrueClass], :default => false
+
 actions :install, :uninstall, :new_cluster, :join_cluster, :reset_to_defaults, :restart
