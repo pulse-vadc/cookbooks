@@ -6,19 +6,13 @@ that replicates config, and not the admin server.  So, you will observe that the
 providers will generally write files directly, and the values that get written
 into each file come from node attributes.
 
-#Cookbooks
+#Official Documentation
+You can find the official Riverbed&reg; Stingray Traffic Manager&trade;
+documentation on the [Riverbed Support Site](https://support.riverbed.com/docs/stingray/index.htm)
 
-##stingray
-A cookbook for deploying and (to a lesser degree) configuring services within a
-chef environment.
+#Live Users
 
-#Other Resources
-
-##Official Documentation
-
-##Live Users
-
-###RightScale
+##RightScale
 
 The Riverbed&reg; Stingray Traffic Manager&trade; series ServerTemplates&reg; on
 RightScale&trade; make extensive use of this cookbook.  [A Free Developer
