@@ -34,4 +34,4 @@ into each file come from node attributes.
 
 ###RightScale
 
-The Stingray Traffic Manager series ServerTemplates&amp;reg on RightScale&amp;tm
+The Stingray Traffic Manager series ServerTemplates&reg; on RightScale&tm;
