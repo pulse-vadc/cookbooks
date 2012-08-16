@@ -9,22 +9,8 @@ into each file come from node attributes.
 #Cookbooks
 
 ##stingray
-
-###resources
-
-####stingray
-
-###providers
-
-####stingray90
-
-####stingray90r2
-
-###recipes
-
-###templates
-
-###files
+A cookbook for deploying and (to a lesser degree) configuring services within a
+chef environment.
 
 #Other Resources
 
@@ -35,7 +21,7 @@ into each file come from node attributes.
 ###RightScale
 
 The Riverbed&reg; Stingray Traffic Manager&trade; series ServerTemplates&reg; on
-RightScale&trade; makes extensive use of this cookbook.  [A Free Developer
+RightScale&trade; make extensive use of this cookbook.  [A Free Developer
 Edition](https://my.rightscale.com/library/server_templates/Stingray-Free-Developer-Editio/lineage/15764)
 is available for anyone who wants to try all of the features of Stingray
 in a non-production environment (subject to the terms specified in the
