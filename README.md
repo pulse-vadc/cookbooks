@@ -1,4 +1,4 @@
-#Overview#
+#Overview
 
 This is a repo of chef cookbooks for managing Riverbed's Stingray Traffic
 Manager. The philosophy of this implementation is that chef should be the thing
@@ -6,22 +6,32 @@ that replicates config, and not the admin server.  So, you will observe that the
 providers will generally write files directly, and the values that get written
 into each file come from node attributes.
 
-#Cookbooks#
+#Cookbooks
 
-##stingray##
+##stingray
 
-###resources###
+###resources
 
-####stingray####
+####stingray
 
-###providers###
+###providers
 
-####stingray90####
+####stingray90
 
-####stingray90r2####
+####stingray90r2
 
-###recipes###
+###recipes
 
-###templates###
+###templates
 
-###files###
+###files
+
+#Other Resources
+
+##Official Documentation
+
+##Live Users
+
+###RightScale
+
+The Stingray Traffic Manager series ServerTemplates&reg on RightScale&tm
