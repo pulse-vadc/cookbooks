@@ -12,7 +12,7 @@ documentation on the [Riverbed Support Site](https://support.riverbed.com/docs/s
 
 #Live Users
 
-##RightScale
+##Stingray ServerTemplates available on  RightScale 
 
 The Riverbed&reg; Stingray Traffic Manager&trade; series ServerTemplates&reg; on
 RightScale&trade; make extensive use of this cookbook.  [A Free Developer
