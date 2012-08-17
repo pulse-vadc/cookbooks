@@ -35,18 +35,20 @@ latest version.
 
 ## default
 
-| ** Attribute ** | ** Description ** | ** Default Value **|
-|_|_|
-| stingray/path | The path where Stingray exists (or will be installed to) | /opt/riverbed |
-| stingray/version | The version of Stingray to install or configure | 90 |
-| stingray/arch | The binary architecture | x86_64 |
-| stingray/tmpdir | The location used to store temporary files | /tmp |
-| stingray/accept_license | Whether or not you accept the Riverbed
+| ** Attribute ** | ** Description ** | ** Default Value ** |
+| --------------- | ----------------- | ------------------- |
+| `stingray/path` | The path where Stingray exists (or will be installed to) |
+`/opt/riverbed` |
+| `stingray/version` | The version of Stingray to install or configure | `90` |
+| `stingray/arch` | The binary architecture | `x86_64` |
+| `stingray/tmpdir` | The location used to store temporary files | `/tmp` |
+| `stingray/accept_license` | Whether or not you accept the Riverbed
 [EULAs](http://www.riverbed.com/license).
 Setting this to **accept** will indicate that you have read, understood and
 accepted the terms. | reject |
-| stingray/admin_user | The name of an administrative user.| admin |
-| stingray/java_enabled | Whether or not to enable support for Java&trade; Extentions | no |
+| `stingray/admin_user` | The name of an administrative user.| `admin` |
+| `stingray/java_enabled` | Whether or not to enable support for Java&trade;
+Extentions | `no` |
 
 The administrative password set during the creation, or the joining of a
 cluster.
