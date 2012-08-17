@@ -1,3 +1,5 @@
+# vim:  set textwidth=0
+
 #Description
 This cookbook contains an LWRP for installing and configuring Stingray Traffic
 Manager using node attributes.  Currently, the only provider writes files
@@ -41,36 +43,9 @@ latest version.
 | `stingray/version`        | The version of Stingray to install or configure | `90` |
 | `stingray/arch`           | The binary architecture | `x86_64` |
 | `stingray/tmpdir`         | The location used to store temporary files | `/tmp` |
-| `stingray/accept_license` | Whether or not you accept the Riverbed [EULAs](http://www.riverbed.com/license).  Setting this to **accept** will indicate that you have read, understood and accepted the terms. | reject |
-| `stingray/admin_user`     | The name of an administrative user.| `admin` |
-| `stingray/java_enabled`   | Whether or not to enable support for Java&trade; Extentions | `no` |
+| `stingray/accept_license` | Whether or not you accept the Riverbed [EULAs](http://www.riverbed.com/license).  Setting this to **accept** will indicate that you have read, understood and accepted the terms. | `reject` |
+| `stingray/admin_user`     | The name of an administrative user. | `admin` |
+| `stingray/admin_pass`     | The password to use/set for either joining or creating a cluster. |
+| `stingray/java_enabled`   | Whether or not to enable support for Java&trade; Extentions. | `no` |
+| `stingray/ec2`            | We need to do special things when launched into EC2, so use this if you are launching instances into EC2. | `no` |
 
-The administrative password set during the creation, or the joining of a
-cluster.
-
-Whether or not you accept the term and conditions of
-the [Riverbed End User License Agreement and Product Warranty
-Statement](http://www.riverbed.com/us/company/license/)
-
-##stingray/path
-
-The path to the Stingray instance that you want
-to install or configure.  This attribute is required by all recipes.
-
-##stingray/tmpdir
-
-The path to store temporary files during installation.
-
-##stingray/java_enabled
-
-Whether or not Java Extensions are enabled.  Set to
-*no* by default, since it's use requires a JVM to be installed on the target
-system.
-
-##stingray/ec2
-
-We need to do special things when launched into EC2, so use
-this if you are launching instances into EC2.  
-
-
-#Usage
