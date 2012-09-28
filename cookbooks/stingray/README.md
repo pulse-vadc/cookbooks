@@ -1,5 +1,3 @@
-# vim:  set textwidth=0
-
 #Description
 This cookbook contains an LWRP for installing and configuring Stingray Traffic
 Manager using node attributes.  Currently, the only provider writes files
@@ -28,10 +26,71 @@ latest version.
 
 ##stingray90
 
+*TODO*
+
 ##stingray90r2
+
+*TODO*
+
+#Libraries
+
+Libraries in this cookbook are used to read existing configuration state from files.
+There is no simple or reliable key/value system used in STM's config files, so it's
+not straight-forward to simply split each line into a hash (unfortunately).
+
+*Note:* None of these should be considered comprehensive in the fields that they read.
+
+##GlobalCfg.rb
+
+For reading parameters from the global.cfg file.  
+
+##Persistence.rb
+
+For reading parameters from session persistence class files.
+
+##Pools.rb
+
+For reading parameters from pool configuration files.
+
+##TrafficIPGroups.rb
+
+For reading parameters from Traffic IP Groups.
+
+##VirtualServer.rb
+
+For reading parameters from virtual servers.
 
 #Recipes
 
+##application_create.rb
+
+##cluster_join.rb
+
+##cluster_new.rb
+
+##default.rb
+
+##install.rb
+
+##persistence.rb
+
+##pool.rb
+
+##purge.rb
+
+##reset_to_default.rb
+
+##trafficipgroup.rb
+
+##uninstall.rb
+
+##virtual_server.rb
+
+##virtual_server_delete.rb
+
+##virtual_server_start.rb
+
+##virtual_server_stop.rb
 
 #Attributes
 
