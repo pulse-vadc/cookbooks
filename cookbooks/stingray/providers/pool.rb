@@ -1,10 +1,24 @@
 action :configure do
 
+    # create the resource for the new pool and read the old configuration if there is one.
     log "Configuring pool #{new_resource.name}"
     nr = new_resource # Abbreviate new_resource
     cr = Pool.new(nr.name) # Read current resource from disk
+
+    # Log to output the old and new nodes for ease of debug
     log "New nodes: #{nr.nodes}"
-    log "Current nodes: #{cr.nodes}"
+    log "Current nodes: #{cr.nodes}" if cr.nodes.length > 0
+
+    # Setup and ensure the requirements are present for persistence algoritm etc
+    if ! nr.persistence then
+      nr.persistence = cr.persistence ? cr.persistence : node["stingray"]["persistence"]
+    end
+    if ! nr.monitors then
+      nr.monitors = cr.monitors ? cr.monitors : node["stingray"]["monitors"]
+    end
+    if ! nr.algorithm then
+      nr.algorithm = cr.algorithm ? cr.algorithm : node["stingray"]["algorithm"]
+    end
 
     template nr.name do
         backup false
