@@ -3,6 +3,7 @@ action :configure do
     log "Configuring pool #{new_resource.name}"
     nr = new_resource # Abbreviate new_resource
     cr = Pool.new(nr.name) # Read current resource from disk
+    log "Nodes #{nr.nodes}"
 
     template nr.name do
         backup false
