@@ -30,6 +30,7 @@ action :delete do
     log "Deleting pool #{new_resource.name}"
 
     file "#{new_resource.name}" do
+        backup false
         action :delete
     end
 
