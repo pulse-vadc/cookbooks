@@ -6,7 +6,7 @@ action :configure do
 
 	template nr.name do
     cookbook "stingray"
-    backup "false"
+    backup false
 		source "virtual_server.erb"
 		mode "0644"
 		variables(
