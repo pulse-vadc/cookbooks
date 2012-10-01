@@ -7,7 +7,7 @@ action :configure do
 
     # Log to output the old and new nodes for ease of debug
     log "New nodes: #{nr.nodes}"
-    log "Current nodes: #{cr.nodes}" if cr.nodes.length > 0
+    log "Current nodes: #{cr.nodes}" if cr.nodes
 
     # Setup and ensure the requirements are present for persistence algoritm etc
     if ! nr.persistence then
