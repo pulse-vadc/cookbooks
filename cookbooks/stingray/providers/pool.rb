@@ -9,16 +9,22 @@ action :configure do
     log "New nodes: #{nr.nodes}"
     log "Current nodes: #{cr.nodes}" if cr.nodes
 
+    persistence, algorithm = Array.new
+
     # Setup and ensure the requirements are present for persistence algoritm etc
     if ! nr.persistence then
-      nr.persistence = cr.persistence ? cr.persistence : node["stingray"]["persistence"]
+      persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
     end
-    if ! nr.monitors then
-      nr.monitors = cr.monitors ? cr.monitors : node["stingray"]["monitors"]
-    end
-    if ! nr.algorithm then
-      nr.algorithm = cr.algorithm ? cr.algorithm : node["stingray"]["algorithm"]
-    end
+
+    algorithm = [ "cells" ]
+
+    # Here as notes for remaining requirements.
+#    if ! nr.monitors then
+#      nr.monitors = cr.monitors ? cr.monitors : node["stingray"]["monitors"]
+#    end
+#    if ! nr.algorithm then
+#      nr.algorithm = cr.algorithm ? cr.algorithm : node["stingray"]["algorithm"]
+#    end
 
     template nr.name do
         backup false
