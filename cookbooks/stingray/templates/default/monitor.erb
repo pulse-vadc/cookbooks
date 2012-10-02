@@ -1,0 +1,9 @@
+editable_keys <% unless @editable_keys.class == NilClass -%><%=@editable_keys.class == Array ? @editable_keys * " " : @editable_keys.to_s %><%end-%>
+<% unless @can_use_ssl.class == NilClass -%><%="can_use_ssl #{@can_use_ssl}"%><%end-%>
+<% unless @delay.class == NilClass -%><%="delay #{@delay}"%><%end-%>
+<% unless @failures.class == NilClass -%><%="failures #{@failures}"%><%end-%>
+<% unless @scope.class == NilClass -%><%="scope #{@scope}"%><%end-%>
+<% unless @timeout.class == NilClass -%><%="timeout #{@timeout}"%><%end-%>
+<% unless @type.class == NilClass -%><%="type #{@type}"%><%end-%>
+<% unless @use_ssl.class == NilClass -%><%="use_ssl #{@use_ssl}"%><%end-%>
+<% unless @factory.class == NilClass -%><%="factory #{@factory}"%><%end-%>
