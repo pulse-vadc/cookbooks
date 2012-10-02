@@ -13,7 +13,7 @@ action :configure do
 
     # Setup and ensure the requirements are present for persistence algoritm etc
     log "testing persist code start"
-    log "nr.persistence: #{nr.perisistance}"
+    log "nr.persistence: #{nr.persistance}"
     if nr.persistence then
       persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
       log "persistence: #{persistence}"
