@@ -14,6 +14,11 @@ action :configure do
     # Setup and ensure the requirements are present for persistence algoritm etc
     if ! nr.persistence then
       persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
+      log "persistence: #{persistence}"
+
+      persistence nr.name do
+        action :configure
+      end
     end
 
     algorithm = [ "cells" ]
@@ -39,7 +44,8 @@ action :configure do
                 :maxconns => nr.maxconns ? nr.maxconns : cr.maxconns,
                 :persistence => nr.persistence ? nr.persistence : cr.persistence,
                 :weightings => nr.weightings ? nr.weightings : cr.weightings,
-                :algorithm => nr.algorithm ? nr.algorithm : cr.algorithm,
+                :algorithm => algorithm
+                #:algorithm => nr.algorithm ? nr.algorithm : cr.algorithm,
                 :priority => nr.priority ? nr.priority : cr.priority
                 )
     end
