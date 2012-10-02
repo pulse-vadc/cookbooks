@@ -12,7 +12,9 @@ action :configure do
     persistence, algorithm = Array.new
 
     # Setup and ensure the requirements are present for persistence algoritm etc
-    if ! nr.persistence then
+    log "testing persist code start"
+    log "nr.persistence: #{nr.perisistance}"
+    if nr.persistence then
       persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
       log "persistence: #{persistence}"
 
@@ -20,6 +22,7 @@ action :configure do
         action :configure
       end
     end
+    log "testing persist code end"
 
     algorithm = [ "cells" ]
 
