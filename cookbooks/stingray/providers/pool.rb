@@ -9,13 +9,13 @@ action :configure do
     log "New nodes: #{nr.nodes}"
     log "Current nodes: #{cr.nodes}" if cr.nodes
 
-    persistence, algorithm = Array.new
+    pool_persistence, pool_algorithm = Array.new
 
     # Setup and ensure the requirements are present for persistence algoritm etc
     log "testing persist code start"
     log "nr.persistence: #{nr.persistence}"
     if nr.persistence then
-      persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
+      pool_persistence = cr.persistence ? cr.persistence : [ node["stingray"]["persistence"] ]
       log "persistence: #{persistence}"
 
       persistence nr.name do
@@ -24,7 +24,7 @@ action :configure do
     end
     log "testing persist code end"
 
-    algorithm = [ "cells" ]
+    pool_algorithm = [ "cells" ]
 
     # Here as notes for remaining requirements.
 #    if ! nr.monitors then
