@@ -10,7 +10,8 @@ action :configure do
       mode "0644"
       variables(
          :type => nr.type ? nr.type : cr.type,
-         :cookie => nr.cookie ? nr.cookie : cr.cookie
+         :cookie => nr.cookie ? nr.cookie : cr.cookie,
+         :failuremode => nr.failuremode ? nr.failuremode : cr.failuremode
       )
    end
 
