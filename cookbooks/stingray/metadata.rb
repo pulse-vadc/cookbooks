@@ -330,6 +330,13 @@ attribute "stingray/persistence/name",
 	:default => "default",
 	:recipes => ["stingray::persistence"]
 
+attribute "stingray/persistence/failuremode",
+    :display_name => "Persistence failure mode",
+    :description => "What should happen in the event the node required by this
+    persistence class is unavailable.",
+    :required => "optional",
+    :default => "newnode",
+    :recipes => ["stingray::persistence"]
 
 attribute "stingray/persistence/type",
 	:display_name => "Persistence method",

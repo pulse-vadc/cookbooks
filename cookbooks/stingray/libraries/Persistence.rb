@@ -2,6 +2,8 @@ class Persistence
 
    attr(:type)
    attr(:cookie)
+   attr(:kind_of)
+   attr(:failuremode)
 
    def initialize(resource)
 
@@ -16,6 +18,8 @@ class Persistence
                   @type = arry[1]
                when "cookie"
                   @cookie = arry[1]
+               when "failuremode"
+                  @failuremode = arry[1]
             end
          end
          file.close

@@ -1,65 +1,141 @@
 {
-  "version": "0.0.10",
+  "dependencies": {
+  },
+  "maintainer_email": "gosse.alex@gmail.com",
+  "groupings": {
+    "stingray": {
+      "description": "Options for performing the installation and clustering operations.",
+      "title": "Stingray options"
+    },
+    "stingray/persistence": {
+      "description": "Attributes to control session stickiness.",
+      "title": "Session Persistence attributes"
+    },
+    "stingray/trafficipgroup": {
+      "description": "Attributes used to create, update or delete a Traffic IP Group.",
+      "title": "Traffic IP Group attributes"
+    },
+    "stingray/monitor": {
+      "description": "Attributes to configure health monitoring.",
+      "title": "Monitoring attributed"
+    },
+    "stingray/pool": {
+      "description": "Options for creating, updating and deleting pools.",
+      "title": "Pool attributes"
+    },
+    "stingray/vserver": {
+      "description": "Options for creating, updating and deleting virtual servers.",
+      "title": "Virtual server option"
+    }
+  },
   "attributes": {
     "stingray/persistence/cookiename": {
-      "required": "optional",
       "calculated": false,
-      "display_name": "Persistence cookie name",
-      "choice": [
-
-      ],
       "description": "The name of the cookie that should be tracked,\n   when using application cookie-based persistence.",
-      "default": "PHPSESSID",
       "recipes": [
         "stingray::persistence"
       ],
-      "type": "string"
-    },
-    "stingray/vserver/response_rules": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Response rules",
+      "default": "PHPSESSID",
+      "display_name": "Persistence cookie name",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "A space-separated list of response rules that should be applied to this virtual server.",
+      "required": "optional"
+    },
+    "stingray/pool/persistence": {
+      "calculated": false,
+      "description": "The name of a session-persistence class to use.",
       "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
+        "stingray::pool"
       ],
-      "type": "string"
-    },
-    "stingray/vserver/name": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Virtual server name",
+      "display_name": "Session Persistence Class",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The name of this virtual server",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
+      "required": "optional"
     },
-    "stingray/trafficipgroups/slaves": {
-      "required": "optional",
+    "stingray/trafficipgroup/ipaddresses": {
       "calculated": false,
-      "display_name": "Passive Machines",
-      "choice": [
-
-      ],
-      "description": "The passive machines for this Traffic IP Group",
+      "description": "A space-separated list of IP addresses that belong to this group.",
       "recipes": [
         "stingray::trafficipgroup"
       ],
-      "type": "string"
+      "display_name": "Addresses",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "required"
+    },
+    "stingray/ec2": {
+      "calculated": true,
+      "description": "Whether or not the instance is being launched in EC2.",
+      "recipes": [
+        "stingray::cluster_new"
+      ],
+      "display_name": "EC2",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/tmpdir": {
+      "calculated": false,
+      "description": "The name of the directory used to store temporary files.",
+      "recipes": [
+        "stingray::cluster_new",
+        "stingray::cluster_join",
+        "stingray::install",
+        "stingray::reset_to_defaults"
+      ],
+      "default": "/tmp",
+      "display_name": "Temporary directory",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/use_ssl": {
+      "calculated": false,
+      "description": "Whether or not the monitor should wrap the poll in SSL.",
+      "recipes": [
+        "stingray:monitor"
+      ],
+      "default": "No",
+      "display_name": "Monitor use SSL",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/delay": {
+      "calculated": false,
+      "description": "The delay time between monitor polls.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "5",
+      "display_name": "Monitor delay",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
     },
     "stingray/pool/algorithm": {
-      "required": "recommended",
       "calculated": false,
+      "description": "The loadbalancing algorithm to use for the pool.",
+      "recipes": [
+        "stingray::pool"
+      ],
+      "default": "roundrobin",
       "display_name": "Algorithm",
+      "type": "string",
       "choice": [
         "roundrobin",
         "wroundrobin",
@@ -69,355 +145,70 @@
         "responsetimes",
         "random"
       ],
-      "description": "The loadbalancing algorithm to use for the pool.",
-      "default": "roundrobin",
+      "required": "recommended"
+    },
+    "stingray/pool/maxconns": {
+      "calculated": false,
+      "description": "The maximum number of connections that the traffic manager should make to each application server.",
       "recipes": [
         "stingray::pool"
       ],
-      "type": "string"
-    },
-    "stingray/pool/nodes": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Nodes",
+      "display_name": "Maximum connections per-node.",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "A space-separate list of nodes in the form \"host:port\"",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
-    },
-    "stingray/vserver/port": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Virtual server port",
-      "choice": [
-
-      ],
-      "description": "The port that the virtual server listens on",
-      "default": "80",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
-    },
-    "stingray/accept_license": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Riverbed EULA Acceptance",
-      "choice": [
-        "accept",
-        "reject"
-      ],
-      "description": "Whether or not you agree to the terms of Riverbed's\n\tEULA as described at http://www.riverbed.com/license.  This needs to\n\tbe set to \"accept\" if you agreed to the terms.",
-      "recipes": [
-        "stingray::install",
-        "stingray::cluster_new",
-        "stingray::cluster_join"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/use_ssl": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Monitor use SSL",
-      "choice": [
-
-      ],
-      "description": "Whether or not the monitor should wrap the poll in SSL.",
-      "default": "No",
-      "recipes": [
-        "stingray:monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/editable_keys": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Editable keys",
-      "choice": [
-
-      ],
-      "description": "A list of input keys that are editable via the GUI.",
-      "default": "",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/vserver/pool": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Application pool",
-      "choice": [
-
-      ],
-      "description": "The name of the group of application servers.",
-      "default": "discard",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
-    },
-    "stingray/trafficipgroups/keeptogether": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Keep-together",
-      "choice": [
-
-      ],
-      "description": "Whether or not each address in this group should always be hosted by the same traffic manager.",
-      "default": "No",
-      "recipes": [
-        "stingray::trafficipgroup"
-      ],
-      "type": "string"
-    },
-    "stingray/trafficipgroup/enabled": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "TIPG Enabled",
-      "choice": [
-
-      ],
-      "description": "Whether or not this Traffic IP Address Group is enabled.",
-      "default": "Yes",
-      "recipes": [
-        "stingray::trafficipgroup"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/timeout": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Monitor timeout",
-      "choice": [
-
-      ],
-      "description": "The amount of time before a health monitor times out, once\n    it has attempted to open a connection with a node.",
-      "default": "10",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/name": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Monitor name",
-      "choice": [
-
-      ],
-      "description": "The name of the health monitor.",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/pool/disabled": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Disabled nodes",
-      "choice": [
-
-      ],
-      "description": "A space-separated list of nodes that should be disabled.",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
-    },
-    "stingray/pool/name": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Pool name",
-      "choice": [
-
-      ],
-      "description": "The name of a pool.",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/scope": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Monitor scope",
-      "choice": [
-
-      ],
-      "description": "When set to pernode, each node is monitored separately.\n    When set to perpool, a failure detected on a single node will cause the\n    entire pool to be treated as failed.",
-      "default": "pernode",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/can_use_ssl": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Can use SSL",
-      "choice": [
-
-      ],
-      "description": "Whether or not the protocol that monitor is testing can be\n    SSL-wrapped.",
-      "default": "Yes",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
+      "required": "optional"
     },
     "stingray/pool/monitors": {
-      "required": "optional",
       "calculated": false,
-      "display_name": "Health Monitors",
-      "choice": [
-
-      ],
       "description": "A space-sepated list of monitor classes to use for this pool.",
       "recipes": [
         "stingray::pool"
       ],
-      "type": "string"
-    },
-    "stingray/pool/draining": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Draining nodes",
+      "display_name": "Health Monitors",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "A space-separated list of nodes that should be draining.",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
+      "required": "optional"
     },
-    "stingray/vserver/ssl_certificate": {
-      "required": "optional",
+    "stingray/trafficipgroups/slaves": {
       "calculated": false,
-      "display_name": "SSL Certiciate",
+      "description": "The passive machines for this Traffic IP Group",
+      "recipes": [
+        "stingray::trafficipgroup"
+      ],
+      "display_name": "Passive Machines",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The configuration-name of the SSL Certificate to use to decrypt traffic.",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
+      "required": "optional"
     },
-    "stingray/path": {
-      "required": "recommended",
+    "stingray/admin_pass": {
       "calculated": false,
-      "display_name": "Installation Path",
-      "choice": [
-
-      ],
-      "description": "The path where Stingray is or will be located.",
-      "default": "/opt/riverbed",
+      "description": "The password to set for the admin user.",
       "recipes": [
-        "stingray::install",
         "stingray::cluster_new",
-        "stingray::cluster_join",
-        "stingray::reset_to_defaults",
-        "stingray::settings",
-        "stingray::virtual_server",
-        "stingray::pool"
+        "stingray::cluster_join"
       ],
-      "type": "string"
-    },
-    "stingray/monitors/delay": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Monitor delay",
+      "display_name": "Administrative Password",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The delay time between monitor polls.",
-      "default": "5",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/vserver/ssl_decrypt": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "SSL Decrypt",
-      "choice": [
-
-      ],
-      "description": "Whether or not the virtual server should decrypt traffic.",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
-    },
-    "stingray/vserver/address": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Virtual server address",
-      "choice": [
-
-      ],
-      "description": "The IP address(es) and/or Traffic IP Groups that this virtual server shoud listen on.",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
-    },
-    "stingray/ec2": {
-      "required": "optional",
-      "calculated": true,
-      "display_name": "EC2",
-      "choice": [
-
-      ],
-      "description": "Whether or not the instance is being launched in EC2.",
-      "recipes": [
-        "stingray::cluster_new"
-      ],
-      "type": "string"
-    },
-    "stingray/name": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Stingray Name",
-      "choice": [
-
-      ],
-      "description": "The name of the chef resource to use.",
-      "default": "default",
-      "recipes": [
-
-      ],
-      "type": "string"
-    },
-    "stingray/pool/weightings": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Weightings",
-      "choice": [
-
-      ],
-      "description": "For the weighted load-balancing algorithms, the weight to apply to each node.",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
+      "required": "required"
     },
     "stingray/vserver/protocol": {
-      "required": "required",
       "calculated": false,
+      "description": "The protocol used deliver the application.  Note: For SSL-offload, this must be set to \"http\".",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
       "display_name": "Application protocol",
+      "type": "string",
       "choice": [
         "http",
         "https",
@@ -444,156 +235,133 @@
         "client_first",
         "stream"
       ],
-      "description": "The protocol used deliver the application.  Note: For SSL-offload, this must be set to \"http\".",
+      "required": "required"
+    },
+    "stingray/vserver/address": {
+      "calculated": false,
+      "description": "The IP address(es) and/or Traffic IP Groups that this virtual server shoud listen on.",
       "recipes": [
         "stingray::virtual_server",
         "stingray::application"
       ],
-      "type": "string"
-    },
-    "stingray/trafficipgroup/ipaddresses": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Addresses",
+      "display_name": "Virtual server address",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "A space-separated list of IP addresses that belong to this group.",
-      "recipes": [
-        "stingray::trafficipgroup"
-      ],
-      "type": "string"
+      "required": "required"
     },
-    "stingray/monitors/type": {
-      "required": "optional",
+    "stingray/pool/disabled": {
       "calculated": false,
-      "display_name": "Monitor type",
-      "choice": [
-
-      ],
-      "description": "The type of monitor; may be any of [ program, connect,\n    tcp_transaction, ping, sip ]",
-      "default": "ping",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/monitors/failures": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "failures",
-      "choice": [
-
-      ],
-      "description": "The number of consecultive failures required to trigger a\n    node failure event.",
-      "default": "3",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/persistence/name": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Persistence class name",
-      "choice": [
-
-      ],
-      "description": "The name of a session persistence class.",
-      "default": "default",
-      "recipes": [
-        "stingray::persistence"
-      ],
-      "type": "string"
-    },
-    "stingray/pool/priority": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Node Priority Groups",
-      "choice": [
-
-      ],
-      "description": "A space separated list of nodes, and priority groups in the form: \"host:port:priority\".  Priority being an integer.",
+      "description": "A space-separated list of nodes that should be disabled.",
       "recipes": [
         "stingray::pool"
       ],
-      "type": "string"
-    },
-    "stingray/vserver/rules": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Request rules",
+      "display_name": "Disabled nodes",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "A space-separated list of rules that should be applied to this virtual server.",
+      "required": "optional"
+    },
+    "stingray/vserver/response_rules": {
+      "calculated": false,
+      "description": "A space-separated list of response rules that should be applied to this virtual server.",
       "recipes": [
         "stingray::virtual_server",
         "stingray::application"
       ],
-      "type": "string"
-    },
-    "stingray/vserver/private_key": {
-      "required": "optional",
-      "calculated": true,
-      "display_name": "Virtial server private key",
+      "display_name": "Response rules",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The configuration-name of the private key to use to decrypt traffic.",
-      "recipes": [
-        "stingray::virtual_server",
-        "stingray::application"
-      ],
-      "type": "string"
-    },
-    "stingray/trafficipgroups/machines": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Members",
-      "choice": [
-
-      ],
-      "description": "Which traffic managers should be allows to host this Traffic IP Group",
-      "recipes": [
-        "stingray::trafficipgroup"
-      ],
-      "type": "string"
+      "required": "optional"
     },
     "stingray/trafficipgroup/name": {
-      "required": "required",
       "calculated": false,
-      "display_name": "Traffic IP Group Name",
-      "choice": [
-
-      ],
       "description": "The name of a Traffic IP Address Group",
       "recipes": [
         "stingray::trafficipgroup"
       ],
-      "type": "string"
-    },
-    "stingray/tmpdir": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Temporary directory",
+      "display_name": "Traffic IP Group Name",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The name of the directory used to store temporary files.",
-      "default": "/tmp",
+      "required": "required"
+    },
+    "stingray/java_enabled": {
+      "calculated": false,
+      "description": "Whether or not Java Extensions should be enabled. Java requires separate licensing, so it is disabled by default.",
       "recipes": [
+        "stingray::settings"
+      ],
+      "default": "no",
+      "display_name": "Java enabled",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/path": {
+      "calculated": false,
+      "description": "The path where Stingray is or will be located.",
+      "recipes": [
+        "stingray::install",
         "stingray::cluster_new",
         "stingray::cluster_join",
-        "stingray::install",
-        "stingray::reset_to_defaults"
+        "stingray::reset_to_defaults",
+        "stingray::settings",
+        "stingray::virtual_server",
+        "stingray::pool"
       ],
-      "type": "string"
+      "default": "/opt/riverbed",
+      "display_name": "Installation Path",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/monitors/failures": {
+      "calculated": false,
+      "description": "The number of consecultive failures required to trigger a\n    node failure event.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "3",
+      "display_name": "failures",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/can_use_ssl": {
+      "calculated": false,
+      "description": "Whether or not the protocol that monitor is testing can be\n    SSL-wrapped.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "Yes",
+      "display_name": "Can use SSL",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
     },
     "stingray/persistence/type": {
-      "required": "recommended",
       "calculated": false,
+      "description": "The method used for session persistence.",
+      "recipes": [
+        "stingray::persistence"
+      ],
+      "default": "sardine",
       "display_name": "Persistence method",
+      "type": "string",
       "choice": [
         "ip",
         "universal",
@@ -605,182 +373,428 @@
         "x-zeus",
         "ssl"
       ],
-      "description": "The method used for session persistence.",
-      "default": "sardine",
+      "required": "recommended"
+    },
+    "stingray/persistence/failuremode": {
+      "calculated": false,
+      "description": "What should happen in the event the node required by this\n    persistence class is unavailable.",
       "recipes": [
         "stingray::persistence"
       ],
-      "type": "string"
-    },
-    "stingray/pool/maxconns": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Maximum connections per-node.",
+      "default": "newnode",
+      "display_name": "Persistence failure mode",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The maximum number of connections that the traffic manager should make to each application server.",
+      "required": "optional"
+    },
+    "stingray/persistence/name": {
+      "calculated": false,
+      "description": "The name of a session persistence class.",
+      "recipes": [
+        "stingray::persistence"
+      ],
+      "default": "default",
+      "display_name": "Persistence class name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/name": {
+      "calculated": false,
+      "description": "The name of the chef resource to use.",
+      "recipes": [
+
+      ],
+      "default": "default",
+      "display_name": "Stingray Name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/type": {
+      "calculated": false,
+      "description": "The type of monitor; may be any of [ program, connect,\n    tcp_transaction, ping, sip ]",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "ping",
+      "display_name": "Monitor type",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/factory": {
+      "calculated": false,
+      "description": "Whether or not this monitor is one provided out-of-the-box by\n    Riverbed.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "No",
+      "display_name": "Factory",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/pool/priority": {
+      "calculated": false,
+      "description": "A space separated list of nodes, and priority groups in the form: \"host:port:priority\".  Priority being an integer.",
       "recipes": [
         "stingray::pool"
       ],
-      "type": "string"
-    },
-    "stingray/vserver/timeout": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Connection timeout",
+      "display_name": "Node Priority Groups",
+      "type": "string",
       "choice": [
 
       ],
+      "required": "optional"
+    },
+    "stingray/trafficipgroup/enabled": {
+      "calculated": false,
+      "description": "Whether or not this Traffic IP Address Group is enabled.",
+      "recipes": [
+        "stingray::trafficipgroup"
+      ],
+      "default": "Yes",
+      "display_name": "TIPG Enabled",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/monitors/name": {
+      "calculated": false,
+      "description": "The name of the health monitor.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "display_name": "Monitor name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/private_key": {
+      "calculated": true,
+      "description": "The configuration-name of the private key to use to decrypt traffic.",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "display_name": "Virtial server private key",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/name": {
+      "calculated": false,
+      "description": "The name of this virtual server",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "display_name": "Virtual server name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "required"
+    },
+    "stingray/pool/weightings": {
+      "calculated": false,
+      "description": "For the weighted load-balancing algorithms, the weight to apply to each node.",
+      "recipes": [
+        "stingray::pool"
+      ],
+      "display_name": "Weightings",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/timeout": {
+      "calculated": false,
       "description": "The client-side connection timeout value.",
       "recipes": [
         "stingray::virtual_server",
         "stingray::application"
       ],
-      "type": "string"
-    },
-    "stingray/java_enabled": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Java enabled",
+      "display_name": "Connection timeout",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "Whether or not Java Extensions should be enabled. Java requires separate licensing, so it is disabled by default.",
-      "default": "no",
-      "recipes": [
-        "stingray::settings"
-      ],
-      "type": "string"
+      "required": "optional"
     },
-    "stingray/monitors/factory": {
-      "required": "optional",
+    "stingray/vserver/ssl_decrypt": {
       "calculated": false,
-      "display_name": "Factory",
-      "choice": [
-
-      ],
-      "description": "Whether or not this monitor is one provided out-of-the-box by\n    Riverbed.",
-      "default": "No",
-      "recipes": [
-        "stingray::monitor"
-      ],
-      "type": "string"
-    },
-    "stingray/pool/persistence": {
-      "required": "optional",
-      "calculated": false,
-      "display_name": "Session Persistence Class",
-      "choice": [
-
-      ],
-      "description": "The name of a session-persistence class to use.",
-      "recipes": [
-        "stingray::pool"
-      ],
-      "type": "string"
-    },
-    "stingray/vserver/enabled": {
-      "required": "recommended",
-      "calculated": false,
-      "display_name": "Virtual server enabled",
-      "choice": [
-
-      ],
-      "description": "Whether or not this virtual server should listen.",
-      "default": "yes",
+      "description": "Whether or not the virtual server should decrypt traffic.",
       "recipes": [
         "stingray::virtual_server",
         "stingray::application"
       ],
-      "type": "string"
-    },
-    "stingray/license_key": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "License Key",
+      "display_name": "SSL Decrypt",
+      "type": "string",
       "choice": [
 
       ],
+      "required": "optional"
+    },
+    "stingray/pool/nodes": {
+      "calculated": false,
+      "description": "A space-separate list of nodes in the form \"host:port\"",
+      "recipes": [
+        "stingray::pool"
+      ],
+      "display_name": "Nodes",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/pool/name": {
+      "calculated": false,
+      "description": "The name of a pool.",
+      "recipes": [
+        "stingray::pool"
+      ],
+      "display_name": "Pool name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/vserver/port": {
+      "calculated": false,
+      "description": "The port that the virtual server listens on",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "default": "80",
+      "display_name": "Virtual server port",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/trafficipgroups/machines": {
+      "calculated": false,
+      "description": "Which traffic managers should be allows to host this Traffic IP Group",
+      "recipes": [
+        "stingray::trafficipgroup"
+      ],
+      "display_name": "Members",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "required"
+    },
+    "stingray/monitors/timeout": {
+      "calculated": false,
+      "description": "The amount of time before a health monitor times out, once\n    it has attempted to open a connection with a node.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "10",
+      "display_name": "Monitor timeout",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/pool/draining": {
+      "calculated": false,
+      "description": "A space-separated list of nodes that should be draining.",
+      "recipes": [
+        "stingray::pool"
+      ],
+      "display_name": "Draining nodes",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/rules": {
+      "calculated": false,
+      "description": "A space-separated list of rules that should be applied to this virtual server.",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "display_name": "Request rules",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/pool": {
+      "calculated": false,
+      "description": "The name of the group of application servers.",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "default": "discard",
+      "display_name": "Application pool",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/vserver/enabled": {
+      "calculated": false,
+      "description": "Whether or not this virtual server should listen.",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "default": "yes",
+      "display_name": "Virtual server enabled",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "recommended"
+    },
+    "stingray/accept_license": {
+      "calculated": false,
+      "description": "Whether or not you agree to the terms of Riverbed's\n\tEULA as described at http://www.riverbed.com/license.  This needs to\n\tbe set to \"accept\" if you agreed to the terms.",
+      "recipes": [
+        "stingray::install",
+        "stingray::cluster_new",
+        "stingray::cluster_join"
+      ],
+      "display_name": "Riverbed EULA Acceptance",
+      "type": "string",
+      "choice": [
+        "accept",
+        "reject"
+      ],
+      "required": "required"
+    },
+    "stingray/monitors/scope": {
+      "calculated": false,
+      "description": "When set to pernode, each node is monitored separately.\n    When set to perpool, a failure detected on a single node will cause the\n    entire pool to be treated as failed.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "pernode",
+      "display_name": "Monitor scope",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/monitors/editable_keys": {
+      "calculated": false,
+      "description": "A list of input keys that are editable via the GUI.",
+      "recipes": [
+        "stingray::monitor"
+      ],
+      "default": "",
+      "display_name": "Editable keys",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/vserver/ssl_certificate": {
+      "calculated": false,
+      "description": "The configuration-name of the SSL Certificate to use to decrypt traffic.",
+      "recipes": [
+        "stingray::virtual_server",
+        "stingray::application"
+      ],
+      "display_name": "SSL Certiciate",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/trafficipgroups/keeptogether": {
+      "calculated": false,
+      "description": "Whether or not each address in this group should always be hosted by the same traffic manager.",
+      "recipes": [
+        "stingray::trafficipgroup"
+      ],
+      "default": "No",
+      "display_name": "Keep-together",
+      "type": "string",
+      "choice": [
+
+      ],
+      "required": "optional"
+    },
+    "stingray/license_key": {
+      "calculated": false,
       "description": "The name of the license key file that will be used for the installation.",
       "recipes": [
         "stingray::cluster_new",
         "stingray::cluster_join"
       ],
-      "type": "string"
-    },
-    "stingray/admin_pass": {
-      "required": "required",
-      "calculated": false,
-      "display_name": "Administrative Password",
+      "display_name": "License Key",
+      "type": "string",
       "choice": [
 
       ],
-      "description": "The password to set for the admin user.",
-      "recipes": [
-        "stingray::cluster_new",
-        "stingray::cluster_join"
-      ],
-      "type": "string"
-    }
-  },
-  "replacing": {
-  },
-  "maintainer_email": "gosse.alex@gmail.com",
-  "long_description": "#Description\nThis cookbook contains an LWRP for installing and configuring Stingray Traffic\nManager using node attributes.  Currently, the only provider writes files\ndirectly.  In future, someone may write another provider that uses the API,\nCLI, or **zconf**.\n\n#Copyright\n\nCopyright (C) 2012, Riverbed Technology, Inc. All rights reserved.\n\n#Requirements\n\n * Chef\n * Stingray Traffic Manager\n\n\n#Resources\n\n##stingray\n\n#Providers\n\n##default\nDeveloped against version 9.0; should probably be made a symbolic link to the\nlatest version.\n\n##stingray90\n\n*TODO*\n\n##stingray90r2\n\n*TODO*\n\n#Libraries\n\nLibraries in this cookbook are used to read existing configuration state from files.\nThere is no simple or reliable key/value system used in STM's config files, so it's\nnot straight-forward to simply split each line into a hash (unfortunately).\n\n*Note:* None of these should be considered comprehensive in the fields that they read.\n\n##GlobalCfg.rb\n\nFor reading parameters from the global.cfg file.  \n\n##Persistence.rb\n\nFor reading parameters from session persistence class files.\n\n##Pools.rb\n\nFor reading parameters from pool configuration files.\n\n##TrafficIPGroups.rb\n\nFor reading parameters from Traffic IP Groups.\n\n##VirtualServer.rb\n\nFor reading parameters from virtual servers.\n\n#Recipes\n\n##application_create.rb\n\n##cluster_join.rb\n\n##cluster_new.rb\n\n##default.rb\n\n##install.rb\n\n##persistence.rb\n\n##pool.rb\n\n##purge.rb\n\n##reset_to_default.rb\n\n##trafficipgroup.rb\n\n##uninstall.rb\n\n##virtual_server.rb\n\n##virtual_server_delete.rb\n\n##virtual_server_start.rb\n\n##virtual_server_stop.rb\n\n#Attributes\n\n## default\n\n| Attribute                 | Description | Default Value |\n| ---------                 | ----------- | ------------- |\n| `stingray/path`           | The path where Stingray exists (or will be installed to) | `/opt/riverbed` |\n| `stingray/version`        | The version of Stingray to install or configure | `90` |\n| `stingray/arch`           | The binary architecture | `x86_64` |\n| `stingray/tmpdir`         | The location used to store temporary files | `/tmp` |\n| `stingray/accept_license` | Whether or not you accept the Riverbed [EULAs](http://www.riverbed.com/license).  Setting this to **accept** will indicate that you have read, understood and accepted the terms. | `reject` |\n| `stingray/admin_user`     | The name of an administrative user. | `admin` |\n| `stingray/admin_pass`     | The password to use/set for either joining or creating a cluster. |\n| `stingray/java_enabled`   | Whether or not to enable support for Java&trade; Extentions. | `no` |\n| `stingray/ec2`            | We need to do special things when launched into EC2, so use this if you are launching instances into EC2. | `no` |\n\n",
-  "providing": {
-  },
-  "suggestions": {
-  },
-  "groupings": {
-    "stingray/monitor": {
-      "title": "Monitoring attributed",
-      "description": "Attributes to configure health monitoring."
-    },
-    "stingray": {
-      "title": "Stingray options",
-      "description": "Options for performing the installation and clustering operations."
-    },
-    "stingray/pool": {
-      "title": "Pool attributes",
-      "description": "Options for creating, updating and deleting pools."
-    },
-    "stingray/persistence": {
-      "title": "Session Persistence attributes",
-      "description": "Attributes to control session stickiness."
-    },
-    "stingray/vserver": {
-      "title": "Virtual server option",
-      "description": "Options for creating, updating and deleting virtual servers."
-    },
-    "stingray/trafficipgroup": {
-      "title": "Traffic IP Group attributes",
-      "description": "Attributes used to create, update or delete a Traffic IP Group."
+      "required": "required"
     }
   },
   "recommendations": {
   },
-  "conflicting": {
+  "recipes": {
+    "stingray::persistence": "Creates a session persistence class.",
+    "stingray::reset_to_defaults": "Removes the specified Stingray instance from it's current cluster (even if it's the only member).",
+    "stingray::pool": "Creates (or updates) a pool.",
+    "stingray::cluster_new": "Creates a new cluster with the specified installation.",
+    "stingray::default": "Does nothing.",
+    "stingray::install": "Install the Stingray software.",
+    "stingray::trafficipgroup": "Creates or updates a Traffic IP Group",
+    "stingray::cluster_join": "Joins the specified Stingray installation to another.",
+    "stingray::settings": "Applies the settings.cfg template.",
+    "stingray::virtual_server": "Creates (or updates) a virtual server.",
+    "stingray::uninstall": "Uninstall the Stingray software."
   },
-  "license": "All rights reserved",
   "description": "Installs/Configures stingray",
-  "dependencies": {
+  "replacing": {
+  },
+  "maintainer": "Riverbed Technology, Inc.",
+  "providing": {
+  },
+  "suggestions": {
+  },
+  "long_description": "#Description\nThis cookbook contains an LWRP for installing and configuring Stingray Traffic\nManager using node attributes.  Currently, the only provider writes files\ndirectly.  In future, someone may write another provider that uses the API,\nCLI, or **zconf**.\n\n#Copyright\n\nCopyright (C) 2012, Riverbed Technology, Inc. All rights reserved.\n\n#Requirements\n\n * Chef\n * Stingray Traffic Manager\n\n\n#Resources\n\n##stingray\n\n#Providers\n\n##default\nDeveloped against version 9.0; should probably be made a symbolic link to the\nlatest version.\n\n##stingray90\n\n*TODO*\n\n##stingray90r2\n\n*TODO*\n\n#Libraries\n\nLibraries in this cookbook are used to read existing configuration state from files.\nThere is no simple or reliable key/value system used in STM's config files, so it's\nnot straight-forward to simply split each line into a hash (unfortunately).\n\n*Note:* None of these should be considered comprehensive in the fields that they read.\n\n##GlobalCfg.rb\n\nFor reading parameters from the global.cfg file.  \n\n##Persistence.rb\n\nFor reading parameters from session persistence class files.\n\n##Pools.rb\n\nFor reading parameters from pool configuration files.\n\n##TrafficIPGroups.rb\n\nFor reading parameters from Traffic IP Groups.\n\n##VirtualServer.rb\n\nFor reading parameters from virtual servers.\n\n#Recipes\n\n##application_create.rb\n\n##cluster_join.rb\n\n##cluster_new.rb\n\n##default.rb\n\n##install.rb\n\n##persistence.rb\n\n##pool.rb\n\n##purge.rb\n\n##reset_to_default.rb\n\n##trafficipgroup.rb\n\n##uninstall.rb\n\n##virtual_server.rb\n\n##virtual_server_delete.rb\n\n##virtual_server_start.rb\n\n##virtual_server_stop.rb\n\n#Attributes\n\n## default\n\n| Attribute                 | Description | Default Value |\n| ---------                 | ----------- | ------------- |\n| `stingray/path`           | The path where Stingray exists (or will be installed to) | `/opt/riverbed` |\n| `stingray/version`        | The version of Stingray to install or configure | `90` |\n| `stingray/arch`           | The binary architecture | `x86_64` |\n| `stingray/tmpdir`         | The location used to store temporary files | `/tmp` |\n| `stingray/accept_license` | Whether or not you accept the Riverbed [EULAs](http://www.riverbed.com/license).  Setting this to **accept** will indicate that you have read, understood and accepted the terms. | `reject` |\n| `stingray/admin_user`     | The name of an administrative user. | `admin` |\n| `stingray/admin_pass`     | The password to use/set for either joining or creating a cluster. |\n| `stingray/java_enabled`   | Whether or not to enable support for Java&trade; Extentions. | `no` |\n| `stingray/ec2`            | We need to do special things when launched into EC2, so use this if you are launching instances into EC2. | `no` |\n\n",
+  "name": "stingray",
+  "conflicting": {
   },
   "platforms": {
   },
-  "recipes": {
-    "stingray::persistence": "Creates a session persistence class.",
-    "stingray::settings": "Applies the settings.cfg template.",
-    "stingray::install": "Install the Stingray software.",
-    "stingray::default": "Does nothing.",
-    "stingray::trafficipgroup": "Creates or updates a Traffic IP Group",
-    "stingray::virtual_server": "Creates (or updates) a virtual server.",
-    "stingray::reset_to_defaults": "Removes the specified Stingray instance from it's current cluster (even if it's the only member).",
-    "stingray::cluster_new": "Creates a new cluster with the specified installation.",
-    "stingray::pool": "Creates (or updates) a pool.",
-    "stingray::cluster_join": "Joins the specified Stingray installation to another.",
-    "stingray::uninstall": "Uninstall the Stingray software."
-  },
-  "maintainer": "Riverbed Technology, Inc.",
-  "name": "stingray"
+  "version": "0.0.10",
+  "license": "All rights reserved"
 }
