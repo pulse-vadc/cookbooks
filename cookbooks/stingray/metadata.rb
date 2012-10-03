@@ -305,24 +305,20 @@ attribute "stingray/pool/algorithm",
 	:display_name => "Pool loadbalancing algorithm",
 	:description => "The loadbalancing algorithm to use for the pool. This can
     be one of the following:
- * roundrobin
- * wroundrobin (weighted round-robin)
- * cells (perceptive)
- * connections (least connections)
- * wconnections (weighted least connections)
- * responsetimes (fastest response time)
- * random",
-	:required => "recommended",
-	:default => "roundrobin",
-   :choice => [
-      "roundrobin", # Roundrobin
-      "wroundrobin", # Weighted round-robin
-      "cells", # Perceptive
-      "connections", # Least Connections
-      "wconnections", # Weighted Least-Connections
-      "responsetimes", # Fastest response-time
-      "random" # Random
-      ],
+ roundrobin, wroundrobin (weighted round-robin), cells (perceptive),
+ connections (least connections), wconnections (weighted least connections),
+ responsetimes, (fastest response time), random",
+    :required => "recommended",
+    :default => "roundrobin",
+    :choice => [
+        "roundrobin", # Roundrobin
+        "wroundrobin", # Weighted round-robin
+        "cells", # Perceptive
+        "connections", # Least Connections
+        "wconnections", # Weighted Least-Connections
+        "responsetimes", # Fastest response-time
+        "random" # Random
+    ],
 	:recipes => ["stingray::pool"]
 
 attribute "stingray/pool/priority",
