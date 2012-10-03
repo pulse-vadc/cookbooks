@@ -24,7 +24,7 @@ action :configure do
 #      end
 #      log "testing persist code end"
 #  
-#      pool_algorithm = [ "cells" ]
+     pool_algorithm = [ "cells" ]
 #  
     # Here as notes for remaining requirements.
 #    if ! nr.monitors then
