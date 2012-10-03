@@ -38,7 +38,7 @@ grouping "stingray/persistence",
    :title => "Session Persistence attributes",
    :description => "Attributes to control session stickiness."
 
-grouping "stingray/monitor",
+grouping "stingray/healthmonitor",
     :title => "Monitoring attributed",
     :description => "Attributes to configure health monitoring."
 
@@ -364,33 +364,33 @@ attribute "stingray/persistence/cookiename",
 	:default => "PHPSESSID",
 	:recipes => ["stingray::persistence"]
 
-attribute "stingray/monitors/name",
+attribute "stingray/healthmonitor/name",
 	:display_name => "Monitor name",
 	:description => "The name of the health monitor.",
 	:required => "optional",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/can_use_ssl",
+attribute "stingray/healthmonitor/can_use_ssl",
 	:display_name => "Can use SSL",
 	:description => "Whether or not the protocol that monitor is testing can be
     SSL-wrapped.",
 	:required => "optional",
 	:default => "Yes",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/delay",
+attribute "stingray/healthmonitor/delay",
 	:display_name => "Monitor delay",
 	:description => "The delay time between monitor polls.",
 	:required => "optional",
 	:default => "5",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/editable_keys",
+attribute "stingray/healthmonitors/editable_keys",
 	:display_name => "Editable keys",
 	:description => "A list of input keys that are editable via the GUI.",
 	:required => "optional",
 	:default => "",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
 attribute "stingray/monitors/factory",
 	:display_name => "Factory",
@@ -398,47 +398,47 @@ attribute "stingray/monitors/factory",
     Riverbed.",
 	:required => "optional",
 	:default => "No",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/failures",
+attribute "stingray/healthmonitor/failures",
 	:display_name => "failures",
 	:description => "The number of consecultive failures required to trigger a
     node failure event.",
 	:required => "optional",
 	:default => "3",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/scope",
+attribute "stingray/healthmonitor/scope",
 	:display_name => "Monitor scope",
 	:description => "When set to pernode, each node is monitored separately.
     When set to perpool, a failure detected on a single node will cause the
     entire pool to be treated as failed.",
 	:required => "optional",
 	:default => "pernode",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/timeout",
+attribute "stingray/healthmonitor/timeout",
 	:display_name => "Monitor timeout",
 	:description => "The amount of time before a health monitor times out, once
     it has attempted to open a connection with a node.",
 	:required => "optional",
 	:default => "10",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/type",
+attribute "stingray/healthmonitor/type",
 	:display_name => "Monitor type",
 	:description => "The type of monitor; may be any of [ program, connect,
     tcp_transaction, ping, sip ]",
 	:required => "optional",
 	:default => "ping",
-	:recipes => ["stingray::monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
-attribute "stingray/monitors/use_ssl",
+attribute "stingray/healthmonitor/use_ssl",
 	:display_name => "Monitor use SSL",
 	:description => "Whether or not the monitor should wrap the poll in SSL.",
 	:required => "optional",
 	:default => "No",
-	:recipes => ["stingray:monitor"]
+	:recipes => ["stingray::healthmonitor"]
 
 =begin
 attribute "",

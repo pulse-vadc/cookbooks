@@ -1,8 +1,8 @@
 action :configure do
 
-    log "Configuring Health monitor #{new_resource.name}"
+    log "Configuring Health Monitor #{new_resource.name}"
     nr = new_resource # Abbreviate new_resource
-    cr = Monitor.new(nr.name) # Read current resource from disk
+    cr = HealthMonitor.new(nr.name) # Read current resource from disk
 
     template nr.name do
         cookbook "stingray"
