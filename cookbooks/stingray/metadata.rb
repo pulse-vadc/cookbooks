@@ -302,8 +302,16 @@ attribute "stingray/pool/weightings",
 	:recipes => ["stingray::pool"]
 
 attribute "stingray/pool/algorithm",
-	:display_name => "Algorithm",
-	:description => "The loadbalancing algorithm to use for the pool.",
+	:display_name => "Pool loadbalancing algorithm",
+	:description => "The loadbalancing algorithm to use for the pool. This can
+    be one of the following:
+ * roundrobin
+ * wroundrobin (weighted round-robin)
+ * cells (perceptive)
+ * connections (least connections)
+ * wconnections (weighted least connections)
+ * responsetimes (fastest response time)
+ * random",
 	:required => "recommended",
 	:default => "roundrobin",
    :choice => [
