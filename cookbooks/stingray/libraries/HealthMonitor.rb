@@ -1,4 +1,4 @@
-class Monitor
+class HealthMonitor
 
    attr(:can_use_ssl)
    attr(:delay)

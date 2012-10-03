@@ -1,4 +1,4 @@
-stingray_monitor "#{node["stingray"]["path"]}/zxtm/conf/monitors/#{node["stingray"]["monitor"]["name"]}" do
+stingray_healthmonitor "#{node["stingray"]["path"]}/zxtm/conf/monitors/#{node["stingray"]["monitor"]["name"]}" do
 
    can_use_ssl          node["stingray"]["monitor"]["can_use_ssl"]
    delay                node["stingray"]["monitor"]["delay"]
