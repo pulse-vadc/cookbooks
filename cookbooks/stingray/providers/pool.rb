@@ -47,7 +47,7 @@ action :configure do
                 :maxconns => nr.maxconns ? nr.maxconns : cr.maxconns,
                 :persistence => nr.persistence ? nr.persistence : cr.persistence,
                 :weightings => nr.weightings ? nr.weightings : cr.weightings,
-                :algorithm => algorithm,
+                :algorithm => pool_algorithm,
                 #:algorithm => nr.algorithm ? nr.algorithm : cr.algorithm,
                 :priority => nr.priority ? nr.priority : cr.priority
                 )
