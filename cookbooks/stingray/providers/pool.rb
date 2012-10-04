@@ -9,7 +9,7 @@ action :configure do
     log "New nodes: #{nr.nodes}"
     log "Current nodes: #{cr.nodes}" if cr.nodes
 
-    pool_algorithm = node["stingray"]["algorithm"]
+    #pool_algorithm = node["stingray"]["algorithm"]
 
     template nr.name do
         backup false
