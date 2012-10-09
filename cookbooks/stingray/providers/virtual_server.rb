@@ -5,7 +5,8 @@ action :configure do
    cr = VirtualServer.new(nr.name)
 
 	template nr.name do
-      cookbook "stingray"
+    cookbook "stingray"
+    backup false
 		source "virtual_server.erb"
 		mode "0644"
 		variables(
