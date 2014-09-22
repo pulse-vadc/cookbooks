@@ -12,5 +12,6 @@ stingray node["stingray"]["name"] do
 	license_key node["stingray"]["license_key"]
 	tmpdir node["stingray"]["tmpdir"]
 	path node["stingray"]["path"]
+        version node["stingray"]["version"]
 	action :install
 end
