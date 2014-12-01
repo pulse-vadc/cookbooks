@@ -41,6 +41,14 @@ action :install do
         'https://support.riverbed.com/download.htm?sid=vdg19dt684868npc3fggd750pn'
       when '9.6r1'
         'https://support.riverbed.com/bin/support/download?sid=9c3387134vofrjui9e6osj1h1g'
+      when '9.7'
+        'https://support.riverbed.com/bin/support/download?sid=tmedbt7phjf2g69b22cesdkb4g'
+      when '9.8'
+        'https://support.riverbed.com/bin/support/download?sid=b1rnr2r4fvo7t6jdsrgolb8qeu'
+      when '9.8r1'
+        'https://support.riverbed.com/bin/support/download?sid=irte05ss3m60br45h8o2vt37l9'
+      when '9.8r2'
+        'https://support.riverbed.com/bin/support/download?sid=p2rmalibflneacije5b4sdac2q'
       else
         raise 'Unsupported version'
       end
