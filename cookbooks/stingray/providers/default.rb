@@ -8,18 +8,50 @@
 #
 action :install do
 
+    short_version = new_resource.version.gsub('.', '')
+
     if new_resource.gold then
 
         packagename =
-        "ZeusTM_#{new_resource.version}_Linux-#{new_resource.arch}-Gold"
+        "ZeusTM_#{short_version}_Linux-#{new_resource.arch}-Gold"
 
     else
 
-        packagename = "ZeusTM_#{new_resource.version}_Linux-#{new_resource.arch}"
+        packagename = "ZeusTM_#{short_version}_Linux-#{new_resource.arch}"
 
     end
 
-   s3bucket = "http://s3.amazonaws.com/stingray-rightscale-90-a57a56ee8b4936501ffa85c76fa3dc9e/"
+    packageurl =
+      case new_resource.version
+      when '9.1'
+        'https://support.riverbed.com/download.htm?sid=c26o2rd0sn2d46m9nlkb8lc2u4'
+      when '9.1r2'
+        'https://support.riverbed.com/download.htm?sid=mg1k8t5ib0t1ejh9f62jbp2li6'
+      when '9.2'
+        'https://support.riverbed.com/download.htm?sid=1d4quq8su3kuhaoor93mlb104d'
+      when '9.3'
+        'https://support.riverbed.com/download.htm?sid=qbr1k45ualc3gijn0qavnjaei7'
+      when '9.3r1'
+        'https://support.riverbed.com/download.htm?sid=t01dd49gtrl85lqus3q7md6qkl'
+      when '9.4'
+        'https://support.riverbed.com/download.htm?sid=biuhlvmnlt3jna7kq8ab2u69jk'
+      when '9.5'
+        'https://support.riverbed.com/download.htm?sid=faudva1r9hrbcie5a6b509aoti'
+      when '9.6'
+        'https://support.riverbed.com/download.htm?sid=vdg19dt684868npc3fggd750pn'
+      when '9.6r1'
+        'https://support.riverbed.com/bin/support/download?sid=9c3387134vofrjui9e6osj1h1g'
+      when '9.7'
+        'https://support.riverbed.com/bin/support/download?sid=tmedbt7phjf2g69b22cesdkb4g'
+      when '9.8'
+        'https://support.riverbed.com/bin/support/download?sid=b1rnr2r4fvo7t6jdsrgolb8qeu'
+      when '9.8r1'
+        'https://support.riverbed.com/bin/support/download?sid=irte05ss3m60br45h8o2vt37l9'
+      when '9.8r2'
+        'https://support.riverbed.com/bin/support/download?sid=p2rmalibflneacije5b4sdac2q'
+      else
+        raise 'Unsupported version'
+      end
 
    directory "#{new_resource.tmpdir}/#{packagename}" do
       recursive true
@@ -30,7 +62,7 @@ action :install do
       creates "#{new_resource.tmpdir}/#{packagename}.tgz"
       cwd new_resource.tmpdir
       # Resume partial transfers, print no console output.
-      command "wget --continue --quiet #{s3bucket}#{packagename}.tgz"
+      command "wget --continue --quiet -O #{packagename}.tgz #{packageurl}"
    end
 
    template "#{new_resource.tmpdir}/install_replay" do
